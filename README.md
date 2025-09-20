@@ -4,9 +4,10 @@ cl-tools is a repository full of tools that I have made to be used in the comman
 
 ## Included Tools
 - Calculator
+- IPv4 Subnet Calculator
 
 ## Future Tools
-- IP Subnet Calculator
+- IPv6 Subnet Calculator
 
 ## How to Make Commands
 A user can make a new command in most Linux distributions by editing the <b>~/.bashrc</b> file. You will need to add a new line to the file and write:
