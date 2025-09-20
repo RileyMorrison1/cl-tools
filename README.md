@@ -4,6 +4,7 @@ cl-tools is a repository full of tools that I have made to be used in the comman
 
 ## Included Tools
 - Calculator
+- Dice
 - IPv4 Subnet Calculator
 
 ## Future Tools
