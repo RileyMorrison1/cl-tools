@@ -9,6 +9,7 @@ int main(){
 	while (running){
 		validation = false;
 		
+		// Asks for input and validates it, to see if it is an integer.
 		cout << "\nNumber 1: ";
 		while (!(cin >> num1)){
 			cout << "\nInvalid Number. Try again.";
@@ -21,6 +22,7 @@ int main(){
 		cin.clear();
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
+		// Asks for input and validates it, to see if it is a valid operator.
 		while (!validation){
 
 		cout << "\nOperator: ";
@@ -48,14 +50,17 @@ int main(){
 					validation = true;
 					break;
 
+				// If '%' is inputted, the mudulo of the numbers is done.
 				case '%':
 					validation = true;
 					break;
 				
+				// If '=' is inputted, checks if the numbers are equal.
 				case '=':
 					validation = true;
 					break;
 
+				// If 'h' is inputted, information about operators is outputted.
 				case 'h':
 					cout << "Operators\n";
 					cout << "\'+\' - Addition\n";
@@ -68,25 +73,23 @@ int main(){
 					cout << "\'q\' - Quit\n";
 					break;
 
+				// If 'q' is inputted, the application is terminated.
 				case 'q':
 					running = false;
-					
-					break;
+					cout << '\n';
+					return -1;
+
 
 				default:
 					cout << "\nInvalid Operator. Try again.";
 			}
 
-			if (!running){
-				break;
-			}
+			
 
 
 
 		}
-		if (!running){
-			break;
-		}
+		
 		std::cout << "\nNumber 2: ";
 		while (!(cin >> num2)){
 
@@ -99,6 +102,7 @@ int main(){
 		cin.clear();
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		cout << "\n";
+		// Calculates the operation done on num1 and num2 based on the operator.
 		switch (op){
 			case '+':
 				answer = num1 + num2;
@@ -137,7 +141,7 @@ int main(){
 
                                       }
 		}
-
+		
 		
 	}
 }
