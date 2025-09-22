@@ -17,6 +17,7 @@ string nw_octet1_b, nw_octet2_b, nw_octet3_b, nw_octet4_b;
 list<int*> mask_octets[4];
 int mask_octet1, mask_octet2, mask_octet3, mask_octet4;
 string mask_octet1_b, mask_octet2_b, mask_octet3_b, mask_octet4_b;
+int total_hosts, usable_hosts, host_bits;
 
 // class_validation function checks if a character is a valid network class and returns either true or false.
 bool class_validation(char class_type){
@@ -119,6 +120,45 @@ string mask_calculator(int msk){
 	
 }
 
+// host_bits_calculator function calculates the host bits.
+int host_bits_calculator(string msk1, string msk2, string msk3, string msk4){
+
+	int bits = 0;
+
+	for (int x = 0; x < 8; x++){
+		if (msk1[x] == '0'){
+			bits++;
+		}
+
+	}
+
+	for (int x = 0; x < 8; x++){
+		if (msk2[x] == '0'){
+			bits++;
+		}
+
+	}
+
+	for (int x = 0; x < 8; x++){
+		if (msk3[x] == '0'){
+			bits++;
+		}
+
+	}
+
+	for (int x = 0; x < 8; x++){
+		if (msk4[x] == '0'){
+			bits++;
+		}
+
+
+
+	}
+
+	return bits;
+
+}
+
 int main(){
 
 	// Validates a user inputted network class.
@@ -146,7 +186,6 @@ int main(){
 		cin.clear();
 		cin.ignore(numeric_limits<streamsize>::max(), '\n');
 	}	
-	
 
 	// Validates a user inputted IPv4 address.
 	validation = false;
@@ -236,18 +275,23 @@ int main(){
 		mask_octet3 = binary_to_int(mask_octet3_b);
 		mask_octet4 = binary_to_int(mask_octet4_b);
 
-		string a = mask_calculator(mask);
+		string a = mask_calculator(mask);	
+	
+		host_bits = host_bits_calculator(mask_octet1_b, mask_octet2_b, mask_octet3_b, mask_octet4_b);
+		usable_hosts = pow(2, host_bits) - 2;
+		total_hosts = pow(2, host_bits);
+
 		cout << "\nIP Address: " << octet1 << '.' << octet2 << '.' << octet3 << '.' << octet4;
 		cout << "\nNetwork Address: ";
 		cout << "\nUsable Host IP Range: ";
 		cout << "\nBroadcast Address: ";
-		cout << "\nTotal Number of Hosts: ";
-		cout << "\nNumber of Usable Hosts: ";
+		cout << "\nTotal Number of Hosts: " << total_hosts;
+		cout << "\nNumber of Usable Hosts: " << usable_hosts;
 		cout << "\nSubnet Mask: " << mask_octet1 << '.' << mask_octet2 << '.' << mask_octet3 << '.' << mask_octet4;
 		cout << "\nWildcard Mask: ";
-		cout << "\nBinary Subnet Mask: ";
+		cout << "\nBinary Subnet Mask: " << mask_octet1_b << '.' << mask_octet2_b << '.' << mask_octet3_b << '.' << mask_octet4_b;
 		cout << "\nIP Class: ";
-		cout << "\nCIDR Notation: ";
+		cout << "\nCIDR Notation: /" << mask;
 		cout << "\nIP Type: ";
 		cout << "\n";
 		cout << "\nShort: ";
