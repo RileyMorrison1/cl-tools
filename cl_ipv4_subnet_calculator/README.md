@@ -1,6 +1,6 @@
 # cl_ipv4_subnet_calculator
 ## Description
-cl_ipv4_subnet_calculator is a simble IPv4 subnetting calculator. The network class, subnet mask and IP address are inputted and then information about the network are calculated.
+cl_ipv4_subnet_calculator is a simple IPv4 subnetting calculator. The network class, subnet mask and IP address are inputted and then information about the network are calculated.
 
 ## Information Calculated
 - IP Address
