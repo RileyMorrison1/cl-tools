@@ -12,6 +12,11 @@ int length, mask, octet1, octet2, octet3, octet4, current_octet;
 string address, octet1_s, octet2_s, octet3_s, octet4_s;
 string octet1_b, octet2_b, octet3_b, octet4_b;
 list<int*> octets = {&octet1, &octet2, &octet3, &octet4};
+int nw_octec1, nw_octet2, nw_octet3, nw_octet4;
+string nw_octet1_b, nw_octet2_b, nw_octet3_b, nw_octet4_b;
+list<int*> mask_octets[4];
+int mask_octet1, mask_octet2, mask_octet3, mask_octet4;
+string mask_octet1_b, mask_octet2_b, mask_octet3_b, mask_octet4_b;
 
 // class_validation function checks if a character is a valid network class and returns either true or false.
 bool class_validation(char class_type){
@@ -37,12 +42,13 @@ bool class_validation(char class_type){
 string int_to_binary(int number){
 	string binary = "";
 	int remainder;
-	cout << "\n" << number;
+
 	while (number >= 1){
 		remainder = number % 2;
 		number /= 2;
 		binary = to_string(remainder) + binary;
-	}
+	
+}
 	while (binary.size() < 8){
 		binary = "0" + binary;
 	}
@@ -52,7 +58,7 @@ string int_to_binary(int number){
 
 // binary_to_int function converts binary to an integer and returns an integer.
 int binary_to_int(string binary){
-	int number;
+	int number = 0;
 	int length = binary.size();
 	int exponent = 0;
 	for (int x = length - 1; x >= 0; x--){
@@ -82,6 +88,36 @@ string AND_operation(string binary1, string binary2){
 		return binary;
 	}
 
+// network_address_calculator function calculates the network address.
+string network_address_calculator(){
+	return "Invalid";
+	}
+
+
+// mask_calculator function calculates the network mask.
+string mask_calculator(int msk){
+	
+	string binary = "00000000000000000000000000000000";
+
+
+	for (int x = 0; x < msk; x++) {
+		binary[x] = '1';
+
+	}
+	
+	mask_octet1_b = binary.substr(0, 8);
+	mask_octet2_b = binary.substr(8, 8);
+	mask_octet3_b = binary.substr(16, 8);
+	mask_octet4_b = binary.substr(24, 8);
+	
+	mask_octet1 = binary_to_int(mask_octet1_b);
+	mask_octet2 = binary_to_int(mask_octet2_b);
+	mask_octet3 = binary_to_int(mask_octet3_b);
+	mask_octet4 = binary_to_int(mask_octet4_b);
+
+	return binary;
+	
+}
 
 int main(){
 
@@ -191,24 +227,23 @@ int main(){
 		octet4_b = "";
 		
 		octet1_b = int_to_binary(octet1);
-		octet1 = binary_to_int(octet1_b);
+		octet2_b = int_to_binary(octet2);
+		octet3_b = int_to_binary(octet3);
+		octet4_b = int_to_binary(octet4);
 
-		cout << "\nOctet1 = " << octet1_s;
-		cout << "\nOctet2 = " << octet2_s;
-		cout << "\nOctet3 = " << octet3_s;
-		cout << "\nOctet4 = " << octet4_s;
-		cout << "\n" << octet1_b;
-		cout << "\n" << octet1;			
-		
-			
-	
-		cout << "\nIP Address: ";
+		mask_octet1 = binary_to_int(mask_octet1_b);
+		mask_octet2 = binary_to_int(mask_octet2_b);
+		mask_octet3 = binary_to_int(mask_octet3_b);
+		mask_octet4 = binary_to_int(mask_octet4_b);
+
+		string a = mask_calculator(mask);
+		cout << "\nIP Address: " << octet1 << '.' << octet2 << '.' << octet3 << '.' << octet4;
 		cout << "\nNetwork Address: ";
 		cout << "\nUsable Host IP Range: ";
 		cout << "\nBroadcast Address: ";
 		cout << "\nTotal Number of Hosts: ";
 		cout << "\nNumber of Usable Hosts: ";
-		cout << "\nSubnet Mask: ";
+		cout << "\nSubnet Mask: " << mask_octet1 << '.' << mask_octet2 << '.' << mask_octet3 << '.' << mask_octet4;
 		cout << "\nWildcard Mask: ";
 		cout << "\nBinary Subnet Mask: ";
 		cout << "\nIP Class: ";
@@ -225,6 +260,6 @@ int main(){
 
 		cout << "\n";
 		cout << "\nAll of the Possible /" << mask << " Networks for ";
-	
+		cout << '\n';	
 		
 	}	
