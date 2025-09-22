@@ -18,6 +18,8 @@ list<int*> mask_octets[4];
 int mask_octet1, mask_octet2, mask_octet3, mask_octet4;
 string mask_octet1_b, mask_octet2_b, mask_octet3_b, mask_octet4_b;
 int total_hosts, usable_hosts, host_bits;
+int wildcard_octet1, wildcard_octet2, wildcard_octet3, wildcard_octet4;
+string wildcard_octet1_b, wildcard_octet2_b, wildcard_octet3_b, wildcard_octet4_b;
 
 // class_validation function checks if a character is a valid network class and returns either true or false.
 bool class_validation(char class_type){
@@ -96,7 +98,7 @@ string network_address_calculator(){
 
 
 // mask_calculator function calculates the network mask.
-string mask_calculator(int msk){
+void mask_calculator(int msk){
 	
 	string binary = "00000000000000000000000000000000";
 
@@ -115,8 +117,6 @@ string mask_calculator(int msk){
 	mask_octet2 = binary_to_int(mask_octet2_b);
 	mask_octet3 = binary_to_int(mask_octet3_b);
 	mask_octet4 = binary_to_int(mask_octet4_b);
-
-	return binary;
 	
 }
 
@@ -158,6 +158,60 @@ int host_bits_calculator(string msk1, string msk2, string msk3, string msk4){
 	return bits;
 
 }
+
+// wildcard_calculator function calculates the wildcard mask.
+void wildcard_calculator(){
+	string binary = "00000000000000000000000000000000";
+	int x = 0;
+	
+	for (int i = 0; i < 8; i++){
+		if (mask_octet1_b[i] == '0'){
+			binary[i] = '1';
+		}
+
+		x++;
+
+	}
+
+	for (int i = 0; i < 8; i++){
+		if (mask_octet2_b[i] == '0'){
+			binary[i + 8] = '1';
+		}
+
+		x++;
+
+	}
+
+	for (int i = 0; i < 8; i++){
+		if (mask_octet3_b[i] == '0'){
+			binary[i + 16] = '1';
+		}
+
+		x++;
+
+	}
+
+	for (int i = 0; i < 8; i++){
+		if (mask_octet4_b[i] == '0'){
+			binary[i + 24] = '1';
+		}
+
+		x++;
+
+	}
+	
+	wildcard_octet1_b = binary.substr(0, 8);
+	wildcard_octet2_b = binary.substr(8, 8);
+	wildcard_octet3_b = binary.substr(16, 8);
+	wildcard_octet4_b = binary.substr(24, 8);
+
+	wildcard_octet1 = binary_to_int(wildcard_octet1_b);
+	wildcard_octet2 = binary_to_int(wildcard_octet2_b);
+	wildcard_octet3 = binary_to_int(wildcard_octet3_b);
+	wildcard_octet4 = binary_to_int(wildcard_octet4_b);
+
+}
+
 
 int main(){
 
@@ -269,17 +323,19 @@ int main(){
 		octet2_b = int_to_binary(octet2);
 		octet3_b = int_to_binary(octet3);
 		octet4_b = int_to_binary(octet4);
-
+		
+		mask_calculator(mask);
+	
 		mask_octet1 = binary_to_int(mask_octet1_b);
 		mask_octet2 = binary_to_int(mask_octet2_b);
 		mask_octet3 = binary_to_int(mask_octet3_b);
 		mask_octet4 = binary_to_int(mask_octet4_b);
-
-		string a = mask_calculator(mask);	
 	
 		host_bits = host_bits_calculator(mask_octet1_b, mask_octet2_b, mask_octet3_b, mask_octet4_b);
 		usable_hosts = pow(2, host_bits) - 2;
 		total_hosts = pow(2, host_bits);
+		
+		wildcard_calculator();
 
 		cout << "\nIP Address: " << octet1 << '.' << octet2 << '.' << octet3 << '.' << octet4;
 		cout << "\nNetwork Address: ";
@@ -288,7 +344,7 @@ int main(){
 		cout << "\nTotal Number of Hosts: " << total_hosts;
 		cout << "\nNumber of Usable Hosts: " << usable_hosts;
 		cout << "\nSubnet Mask: " << mask_octet1 << '.' << mask_octet2 << '.' << mask_octet3 << '.' << mask_octet4;
-		cout << "\nWildcard Mask: ";
+		cout << "\nWildcard Mask: " << wildcard_octet1 << '.' << wildcard_octet2 << '.' << wildcard_octet3 << '.' << wildcard_octet4;
 		cout << "\nBinary Subnet Mask: " << mask_octet1_b << '.' << mask_octet2_b << '.' << mask_octet3_b << '.' << mask_octet4_b;
 		cout << "\nIP Class: ";
 		cout << "\nCIDR Notation: /" << mask;
@@ -304,6 +360,7 @@ int main(){
 
 		cout << "\n";
 		cout << "\nAll of the Possible /" << mask << " Networks for ";
-		cout << '\n';	
-		
-	}	
+		cout << "\n\n";	
+			
+	}
+	
