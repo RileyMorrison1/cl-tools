@@ -8,5 +8,7 @@ cl_calculator is a basic command line calculator. Asks for two numbers and an op
 - '*' - Multiplication operator.
 - '/' - Division operator.
 - '%' - Mudulo operator.
+- '=' - Eqauls operator.
+- '^' - Exponent operator.
 - 'h' - Outputs information about the operators.
 - 'q' - Terminates the program.
