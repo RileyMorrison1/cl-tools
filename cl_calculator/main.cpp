@@ -1,5 +1,6 @@
 #include <iostream>
 #include <limits>
+#include <cmath>
 using namespace std;
 int main(){
 	float num1, num2, answer;
@@ -59,6 +60,11 @@ int main(){
 				case '=':
 					validation = true;
 					break;
+				
+				// If '^' is inputted, number 1 to the power of number 2 is done.				
+				case '^':
+					validation = true;
+					break;
 
 				// If 'h' is inputted, information about operators is outputted.
 				case 'h':
@@ -69,6 +75,7 @@ int main(){
 					cout << "\'/\' - Division\n";
 					cout << "\'%\' - Mudulo\n";
 					cout << "\'=\' - Equals\n";
+					cout << "\'^\' - Exponent\n";
 					cout << "\'h\' - Help\n";
 					cout << "\'q\' - Quit\n";
 					break;
@@ -140,6 +147,12 @@ int main(){
 
 
                                       }
+
+			case '^':
+				answer = pow(num1, num2);
+				cout << num1 << " ^ " << num2 << " = " << answer << "\n";
+				break;
+
 		}
 		
 		
