@@ -1,160 +1,142 @@
 #include <iostream>
 #include <limits>
 #include <cmath>
+#include <list>
+
 using namespace std;
+
+// clear_input function clears the current input stream.
+void clear_input(){
+	cin.clear();
+	cin.ignore(numeric_limits<streamsize>::max(), '\n');
+	}
+
 int main(){
 	float num1, num2, answer;
 	bool running = true;
-	bool validation;
+	bool validation, found;
 	char op;
+	char operators[] = {'+', '-', '*', '/', '%', '=', '^'};
+	
 	while (running){
 		validation = false;
 		
 		// Asks for input and validates it, to see if it is an integer.
-		cout << "\nNumber 1: ";
+		cout << endl << "Number 1: ";
 		while (!(cin >> num1)){
-			cout << "\nInvalid Number. Try again.";
-			cout << "\nNumber 1: ";
-			cin.clear();
-			cin.ignore(std::numeric_limits<streamsize>::max(), '\n');
+			cout << endl << "Invalid Number. Try again." << endl;
+			cout << "Number 1: ";
+			clear_input();
 
 		}
 
-		cin.clear();
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
+		clear_input();
 
 		// Asks for input and validates it, to see if it is a valid operator.
 		while (!validation){
 
-		cout << "\nOperator: ";
+		cout << endl << "Operator: ";
 			while (!(cin >> op)){
 			
-				cout << "\nInvalid Operator. Try again.";
-				cout << "\nOperator: ";
-				cin.clear();
-				cin.ignore(std::numeric_limits<streamsize>::max(), '\n');
+				cout << endl << "Invalid Operator. Try again." << endl;
+				cout << "Operator: ";
+				clear_input();
+
 		}
 			switch (op){
-				case '+':
-					validation = true;
-					break;
-				
-				case '-':
-					validation = true;
-					break;
-
-				case '*':
-					validation = true;
-					break;
-
-				case '/':
-					validation = true;
-					break;
-
-				// If '%' is inputted, the mudulo of the numbers is done.
-				case '%':
-					validation = true;
-					break;
-				
-				// If '=' is inputted, checks if the numbers are equal.
-				case '=':
-					validation = true;
-					break;
-				
-				// If '^' is inputted, number 1 to the power of number 2 is done.				
-				case '^':
-					validation = true;
-					break;
-
 				// If 'h' is inputted, information about operators is outputted.
 				case 'h':
-					cout << "Operators\n";
-					cout << "\'+\' - Addition\n";
-					cout << "\'-\' - Subtraction\n";
-					cout << "\'*\' - Multiplication\n";
-					cout << "\'/\' - Division\n";
-					cout << "\'%\' - Mudulo\n";
-					cout << "\'=\' - Equals\n";
-					cout << "\'^\' - Exponent\n";
-					cout << "\'h\' - Help\n";
-					cout << "\'q\' - Quit\n";
+					cout << endl << "Operators" << endl;
+					cout << "\'+\' - Addition" << endl;
+					cout << "\'-\' - Subtraction" << endl;
+					cout << "\'*\' - Multiplication" << endl;
+					cout << "\'/\' - Division" << endl;
+					cout << "\'%\' - Mudulo" << endl;
+					cout << "\'=\' - Equals" << endl;
+					cout << "\'^\' - Exponent" << endl;
+					cout << "\'h\' - Help" << endl;
+					cout << "\'q\' - Quit" << endl;
 					break;
 
 				// If 'q' is inputted, the application is terminated.
 				case 'q':
 					running = false;
-					cout << '\n';
+					cout << endl;
 					return -1;
 
 
 				default:
-					cout << "\nInvalid Operator. Try again.";
+					found = false;
+					for (int x = 0; x < 7; x++){
+						if (op == operators[x]){
+							found = true;
+							break;
+						}
+					}
+		
+					if (found){
+						validation = true;
+						break;
+					} 
+					else{
+						cout << endl << "Invalid Operator. Try again.";
+					}
 			}
-
-			
-
-
 
 		}
 		
-		std::cout << "\nNumber 2: ";
+		cout << endl << "Number 2: ";
 		while (!(cin >> num2)){
 
-			cout << "\nInvalid Number. Try again.";
-			cout << "\nNumber 2: ";
-			cin.clear();
-			cin.ignore(std::numeric_limits<streamsize>::max(), '\n');
+			cout << endl << "Invalid Number. Try again.";
+			cout << endl << "Number 2: ";
+			clear_input();
+
 		}
 
-		cin.clear();
-		cin.ignore(numeric_limits<streamsize>::max(), '\n');
-		cout << "\n";
+		clear_input();
+
+		cout << endl;
+
 		// Calculates the operation done on num1 and num2 based on the operator.
 		switch (op){
 			case '+':
 				answer = num1 + num2;
-				cout << num1 << " + " << num2 << " = "  << answer << "\n";
 				break;
 
 			case '-':
 				answer = num1 - num2;
-				cout << num1 << " - " << num2 << " = " << answer << "\n";
 				break;
 
 			case '*':
 				answer = num1 * num2;
-				cout << num1 << " * " << num2 << " = " << answer << "\n";
 				break;
 
 			case '/':
 				answer = num1 / num2;
-				cout << num1 << " / " << num2 << " = " << answer << "\n";
 				break;
 
 			case '%':
 				answer = int(num1) % int(num2);
-				cout << num1 << " % " << num2 << " = " << answer << "\n";
 				break;
-
-			case '=':
-				if (num1 == num2){
-					cout << num1 << " == " << num2 << "\n";
-					break;
-				}
-				else {
-					cout << num1 << " != " << num2 << "\n";
-					break;
-
-
-                                      }
 
 			case '^':
 				answer = pow(num1, num2);
-				cout << num1 << " ^ " << num2 << " = " << answer << "\n";
 				break;
 
 		}
 		
-		
+		// Outputs the answer.
+		if (op == '='){
+			if (num1 == num2) {
+				cout << num1 << " == " << num2 << endl;
+			}
+			else{
+				cout << num1 << " != " << num2 << endl;
+			}
+		}
+		else{
+			cout << num1 << ' ' << op << ' ' << num2 << " = " << answer << endl;
+		}		
 	}
 }
